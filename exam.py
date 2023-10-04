@@ -135,20 +135,26 @@ def st_question(html_text, num):
 _create_session()
 
 # select which question set to use
-st.session_state['question_file_path'] = st.selectbox('Select question set', [None, 'questions1', 'questions2', 'questions3'])
+st.session_state['question_file_path'] = st.selectbox('Select question set', [None, 'questions1', 'questions2', 'questions3', 'all'])
 st.write(f'Using test set: {st.session_state["question_file_path"]}')
 
 # select which question set to use
 st.session_state['num_questions'] = st.selectbox('Select size of question set', [None] + list(range(1, 61)))
-
+html = []
 if st.session_state['question_file_path'] and st.session_state['num_questions']:
     if st.session_state['initial_read']:
 
         # with open("questions.json") as f:
         #     questions = json.load(f)
-        forms = read_html(st.session_state['question_file_path'])
-        html = parse_questions(forms)
-        
+        if st.session_state['question_file_path'] == 'all':
+            for path in ['questions1', 'questions2', 'questions3']:
+                forms = read_html(path)
+                html.extend(parse_questions(forms))
+                # st.write(f'all html: {html}')
+        else:
+            forms = read_html(st.session_state['question_file_path'])
+            html = parse_questions(forms)
+        st.write(f'size of html: {len(html)}')
         # for index, question in enumerate(html):
         #     st_question(question, index)
 
