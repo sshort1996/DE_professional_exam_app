@@ -139,7 +139,7 @@ st.session_state['question_file_path'] = st.selectbox('Select question set', [No
 st.write(f'Using test set: {st.session_state["question_file_path"]}')
 
 # select which question set to use
-st.session_state['num_questions'] = st.selectbox('Select size of question set', [None] + list(range(1, 61)))
+st.session_state['num_questions'] = st.selectbox('Select size of question set', [None] + list(range(1, 181)))
 html = []
 if st.session_state['question_file_path'] and st.session_state['num_questions']:
     if st.session_state['initial_read']:
